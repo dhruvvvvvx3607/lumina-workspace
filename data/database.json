@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_001",
+      "email": "admin@stealth.io",
+      "username": "admin",
+      "displayName": "Master Supervisor",
+      "passwordHash": "$2b$10$Wbp4y1Y/Cje8u9J4blwrfOZMj06ojM0iUAhMfDkRnjLXz0HtKS/q2",
+      "role": "admin",
+      "status": "active",
+      "avatarColor": "#f43f5e",
+      "createdAt": "2026-11-19T16:02:32.745Z",
+      "lastActive": "2026-11-19T16:06:37.361Z"
+    },
+    {
+      "id": "usr_1795104318671_josqel",
+      "email": "alice@test.com",
+      "username": "alice_wonder",
+      "displayName": "Alice Wonder",
+      "passwordHash": "$2b$10$k3U4bPr3PNJ3RcGoVqnYQ.ZTOgWy7s3FzIxO.MUE6xqX9vmL3NTHy",
+      "role": "user",
+      "status": "active",
+      "avatarColor": "#6366f1",
+      "createdAt": "2026-11-19T16:05:18.672Z",
+      "lastActive": "2026-11-19T16:05:19.117Z"
+    },
+    {
+      "id": "usr_1795104335693_7vzrkn",
+      "email": "bob@test.com",
+      "username": "bob_builder",
+      "displayName": "Bob Builder",
+      "passwordHash": "$2b$10$ax0MS8IiEcuXYSQoFJ.thO45jeEB/KOIM0lSvlFMfzqsvPY1MZOlu",
+      "role": "user",
+      "status": "discarded",
+      "avatarColor": "#e11d48",
+      "createdAt": "2026-11-19T16:05:35.693Z",
+      "lastActive": "2026-11-19T16:05:35.779Z",
+      "discardedAt": "2026-11-19T16:06:37.368Z",
+      "discardedBy": "usr_admin_001"
+    }
+  ],
+  "messages": [],
+  "adminLogs": [
+    {
+      "id": "log_1795104397369_ui8xc",
+      "adminId": "usr_admin_001",
+      "action": "DISCARD_USER",
+      "details": {
+        "targetUserId": "usr_1795104335693_7vzrkn",
+        "targetUsername": "bob_builder",
+        "targetEmail": "bob@test.com"
+      },
+      "timestamp": "2026-11-19T16:06:37.369Z"
+    }
+  ],
+  "systemSettings": {
+    "appName": "Lumina Workspace",
+    "created": "2026-11-19T16:02:32.424Z"
+  }
+}
