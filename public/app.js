@@ -57,6 +57,8 @@
   const conversationsList = document.getElementById('conversationsList');
 
   // Chat Main
+  const chatMain = document.getElementById('chatMain');
+  const btnMobileBack = document.getElementById('btnMobileBack');
   const noChatSelected = document.getElementById('noChatSelected');
   const activeChatWindow = document.getElementById('activeChatWindow');
   const activePartnerAvatar = document.getElementById('activePartnerAvatar');
@@ -486,6 +488,7 @@
   }
 
   function showAuthScreen() {
+    if (chatMain) chatMain.classList.remove('mobile-active');
     authScreen.classList.remove('hidden');
     mainApp.classList.add('hidden');
     if (socket) socket.disconnect();
@@ -738,6 +741,11 @@
   async function openConversationWithUser(partner) {
     activePartner = partner;
 
+    // Show mobile chat screen on mobile devices
+    if (chatMain) {
+      chatMain.classList.add('mobile-active');
+    }
+
     // Update active chat header
     activePartnerAvatar.textContent = (partner.displayName || partner.username).slice(0, 2).toUpperCase();
     activePartnerAvatar.style.backgroundColor = partner.avatarColor || '#ec4899';
@@ -763,6 +771,17 @@
 
     // Refresh sidebar highlighting
     loadConversations();
+  }
+
+  // Mobile Back Button to return to conversations list
+  if (btnMobileBack) {
+    btnMobileBack.addEventListener('click', () => {
+      if (chatMain) {
+        chatMain.classList.remove('mobile-active');
+      }
+      activePartner = null;
+      document.querySelectorAll('.convo-item').forEach(c => c.classList.remove('active'));
+    });
   }
 
   function renderMessages() {

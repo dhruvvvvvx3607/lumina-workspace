@@ -2034,12 +2034,28 @@ input, textarea {
   background: rgba(255, 255, 255, 0.25);
 }
 
+.mobile-back-btn {
+  display: none;
+  margin-right: 6px;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
 /* ========================================================
    RESPONSIVENESS (MOBILE / TABLET)
    ======================================================== */
 @media (max-width: 768px) {
+  .app-body {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+  }
+
   .sidebar-panel {
     width: 100%;
+    height: 100%;
   }
 
   .chat-main {
@@ -2047,14 +2063,27 @@ input, textarea {
   }
 
   .chat-main.mobile-active {
-    display: flex;
+    display: flex !important;
     position: fixed;
-    inset: 0;
-    z-index: 50;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 60px);
+    z-index: 100;
+  }
+
+  .mobile-back-btn {
+    display: flex !important;
+  }
+
+  .msg-wrapper {
+    max-width: 84%;
   }
 
   .desktop-only {
-    display: none;
+    display: none !important;
   }
 
   .admin-stats-grid {
