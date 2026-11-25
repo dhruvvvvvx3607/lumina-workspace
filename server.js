@@ -325,8 +325,27 @@ app.get('/api/admin/stats', authMiddleware, adminOnly, (req, res) => {
     activeUsers: activeCount,
     discardedUsers: discardedCount,
     totalMessages,
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    isCloudConnected: db.isMongoConnected
   });
+});
+
+// Admin Database Backup Export (Download JSON)
+app.get('/api/admin/backup/export', authMiddleware, adminOnly, (req, res) => {
+  const backup = db.exportFullBackup();
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', `attachment; filename="lumina-backup-${Date.now()}.json"`);
+  res.json(backup);
+});
+
+// Admin Database Backup Import (Restore JSON)
+app.post('/api/admin/backup/import', authMiddleware, adminOnly, async (req, res) => {
+  try {
+    const result = await db.importFullBackup(req.body);
+    res.json({ message: 'Backup restored successfully', result });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 // Fallback route for SPA
