@@ -6,6 +6,11 @@
 (function () {
   'use strict';
 
+  // Backend URL (Automatically points to Render when running on Firebase .web.app domain)
+  const API_BASE = (window.location.origin.includes('web.app') || window.location.origin.includes('firebaseapp.com'))
+    ? 'https://lumina-workspace.onrender.com'
+    : '';
+
   // --- State ---
   let currentUser = null;
   let authToken = localStorage.getItem('prism_auth_token') || null;
@@ -624,7 +629,7 @@
     }
 
     // 3. Inform server async without waiting
-    fetch('/api/panic', { method: 'POST' }).catch(() => {});
+    fetch(`${API_BASE}/api/panic`, { method: 'POST' }).catch(() => {});
 
     // 4. Clear active in-memory DOM variables
     currentUser = null;
@@ -676,7 +681,7 @@
     const password = loginPassword.value;
 
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password })
@@ -709,7 +714,7 @@
     const password = regPassword.value;
 
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, username, displayName, password })
@@ -739,7 +744,7 @@
     }
 
     try {
-      const res = await fetch('/api/auth/me', {
+      const res = await fetch(`${API_BASE}/api/auth/me`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       if (res.ok) {
@@ -801,7 +806,7 @@
   function connectSocket() {
     if (socket) socket.disconnect();
 
-    socket = io({
+    socket = io(API_BASE || undefined, {
       auth: { token: authToken }
     });
 
@@ -901,7 +906,7 @@
 
   async function performUserSearch(query) {
     try {
-      const res = await fetch(`/api/users/search?q=${encodeURIComponent(query)}`, {
+      const res = await fetch(`${API_BASE}/api/users/search?q=${encodeURIComponent(query)}`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       const data = await res.json();
@@ -945,7 +950,7 @@
   // ==========================================
   async function loadConversations() {
     try {
-      const res = await fetch('/api/conversations', {
+      const res = await fetch(`${API_BASE}/api/conversations`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       const data = await res.json();
@@ -1026,7 +1031,7 @@
 
     // Fetch message history for strictly isolated conversation
     try {
-      const res = await fetch(`/api/conversations/${encodeURIComponent(partner.username)}/messages`, {
+      const res = await fetch(`${API_BASE}/api/conversations/${encodeURIComponent(partner.username)}/messages`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       const data = await res.json();
@@ -1255,7 +1260,7 @@
     formData.append('image', pendingImageFile);
 
     try {
-      const res = await fetch('/api/upload', {
+      const res = await fetch(`${API_BASE}/api/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${authToken}` },
         body: formData
@@ -1338,7 +1343,7 @@
 
   async function fetchAdminStats() {
     try {
-      const res = await fetch('/api/admin/stats', {
+      const res = await fetch(`${API_BASE}/api/admin/stats`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       if (res.ok) {
@@ -1355,7 +1360,7 @@
 
   async function fetchAdminUsers() {
     try {
-      const res = await fetch('/api/admin/users', {
+      const res = await fetch(`${API_BASE}/api/admin/users`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       if (res.ok) {
@@ -1431,7 +1436,7 @@
     }
 
     try {
-      const res = await fetch(`/api/admin/users/${userId}/discard`, {
+      const res = await fetch(`${API_BASE}/api/admin/users/${userId}/discard`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${authToken}` }
       });
@@ -1447,7 +1452,7 @@
 
   async function restoreUser(userId, username) {
     try {
-      const res = await fetch(`/api/admin/users/${userId}/restore`, {
+      const res = await fetch(`${API_BASE}/api/admin/users/${userId}/restore`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${authToken}` }
       });
@@ -1463,7 +1468,7 @@
 
   async function fetchAdminFeed() {
     try {
-      const res = await fetch('/api/admin/feed', {
+      const res = await fetch(`${API_BASE}/api/admin/feed`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       if (res.ok) {
