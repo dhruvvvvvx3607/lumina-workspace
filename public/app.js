@@ -78,10 +78,14 @@
   const emojiPickerPopover = document.getElementById('emojiPickerPopover');
   const btnCloseEmoji = document.getElementById('btnCloseEmoji');
   const emojiGrid = document.getElementById('emojiGrid');
+  const emojiSearchInput = document.getElementById('emojiSearchInput');
   const btnToggleSticker = document.getElementById('btnToggleSticker');
   const stickerDrawerPopover = document.getElementById('stickerDrawerPopover');
   const btnCloseSticker = document.getElementById('btnCloseSticker');
   const stickerGrid = document.getElementById('stickerGrid');
+  const customStickerFileInput = document.getElementById('customStickerFileInput');
+  const stickerVaultCount = document.getElementById('stickerVaultCount');
+  const customStickerActions = document.getElementById('customStickerActions');
   const imageFileInput = document.getElementById('imageFileInput');
   const imagePreviewBar = document.getElementById('imagePreviewBar');
   const previewImageSrc = document.getElementById('previewImageSrc');
@@ -129,33 +133,186 @@
   }
 
   // ==========================================
-  // EMOJI & STICKER DATA
+  // WHATSAPP & iOS 18 EMOJI DATA
   // ==========================================
   const emojiCategories = {
-    smileys: ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '🥹', '😊', '😇', '🙂', '😉', '😌', '😍', '🥰', '😘', '😋', '😛', '😜', '🤪', '😎', '🤓', '🧐', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '🥺', '😢', '😭', '😤', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '🤫', '😴', '😷', '🤒', '🤕'],
-    hearts: ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💔', '❤️‍🔥', '❤️‍🩹', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '💌', '💋', '🫀'],
-    gestures: ['👋', '🤚', '🖐️', '✋', '🖖', '👌', '🤌', '🤏', '✌️', '🤞', '🫰', '🤟', '🤘', '🤙', '👈', '👉', '👆', '👇', '☝️', '👍', '👎', '✊', '👊', '🤛', '🤜', '👏', '🙌', '👐', '🤲', '🤝', '🙏', '✍️', '💪'],
-    vibes: ['✨', '⭐', '🌟', '💫', '⚡', '🔥', '💥', '💯', '🎉', '🎊', '🎈', '🚀', '💎', '👑', '🌈', '🔮', '🧿', '🍀', '🌸', '🌹', '🌺', '🌻', '🌼', '🌷', '🍸', '🍾', '🥂', '🍻', '🍻'],
-    animals: ['🐱', '🐶', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦄', '🐝', '🐛', '🦋', '🐙', '🐬', '🐳', '🦈', '🌸']
+    smileys: [
+      '😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃', '🫠', '😉', '😊', '😇',
+      '🥰', '😍', '🤩', '😘', '😗', '😚', '😙', '🥲', '😋', '😛', '😜', '🤪', '😝', '🤑',
+      '🤗', '🫣', '🤫', '🤔', '🫡', '🤐', '🤨', '😐', '😑', '😶', '🫥', '😏', '😒', '🙄',
+      '😬', '🤥', '🫨', '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕', '🤢', '🤮', '🤧',
+      '🥵', '🥶', '🥴', '😵', '😵‍💫', '🤯', '🤠', '🥳', '🥸', '😎', '🤓', '🧐', '😕', '🫤',
+      '😟', '🙁', '😮', '😯', '😲', '😳', '🥺', '🥹', '😦', '😧', '😨', '😰', '😥', '😢',
+      '😭', '😱', '😖', '😣', '😞', '😓', '😩', '😫', '🥱', '😤', '😡', '😠', '🤬', '😈',
+      '👿', '💀', '☠️', '💩', '🤡', '👹', '👺', '👻', '👽', '👾', '🤖'
+    ],
+    hearts: [
+      '❤️', '🩷', '🧡', '💛', '💚', '💙', '🩵', '💜', '🤎', '🖤', '🩶', '🤍', '💔',
+      '❤️‍🔥', '❤️‍🩹', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '💌', '💋',
+      '🫦', '🫀', '👩‍❤️‍💋‍👨', '👩‍❤️‍👨', '👩‍❤️‍💋‍👩', '👨‍❤️‍💋‍👨', '👩‍❤️‍👩', '👨‍❤️‍👨',
+      '💐', '🌹', '🥀', '🌷', '🌸', '🌺', '💒', '💍', '💎'
+    ],
+    people: [
+      '👋', '🤚', '🖐️', '✋', '🖖', '🫱', '🫲', '🫳', '🫴', '👌', '🤌', '🤏', '✌️', '🤞',
+      '🫰', '🤟', '🤘', '🤙', '👈', '👉', '👆', '🖕', '👇', '☝️', '🫵', '👍', '👎', '✊',
+      '👊', '🤛', '🤜', '👏', '🙌', '🫶', '👐', '🤲', '🤝', '🙏', '✍️', '💅', '🤳', '💪',
+      '🦾', '🦿', '🦵', '🦶', '👂', '🦻', '👃', '🧠', '🫁', '🦷', '🦴', '👀', '👁️', '👅', '👄'
+    ],
+    nature: [
+      '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐻‍❄️', '🐨', '🐯', '🦁', '🐮', '🐷',
+      '🐽', '🐸', '🐵', '🙈', '🙉', '🙊', '🐒', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆',
+      '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🪱', '🐛', '🦋', '🐌', '🐞', '🐜',
+      '🪰', '🪲', '🪳', '🦟', '🦗', '🕷️', '🕸️', '🦂', '🐢', '🐍', '🦎', '🦖', '🦕', '🐙',
+      '🦑', '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🦭', '🐊', '🐆',
+      '🐅', '🐃', '🐂', '🐄', '🦌', '🦬', '🦙', '🦮', '🐩', '🐈', '🐈‍⬛', '🪶', '🐓', '🦃'
+    ],
+    food: [
+      '🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭',
+      '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒',
+      '🧄', '🧅', '🥔', '🍠', '🥐', '🥯', '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞',
+      '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭', '🍔', '🍟', '🍕', '🫓', '🥪', '🥙', '🧆',
+      '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🥫', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟',
+      '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '🥮', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧',
+      '🧁', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', '🍯', '🥛',
+      '🍼', '🫖', '☕', '🍵', '🧃', '🥤', '🧋', '🍶', '🍾', '🍷', '🍸', '🍹', '🍺', '🍻', '🥂'
+    ],
+    travel: [
+      '🚗', '🚕', '🚙', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '🚐', '🛻', '🚚', '🚛', '🚜',
+      '🦯', '🦽', '🦼', '🛴', '🚲', '🛵', '🏍️', '🛺', '🚨', '🚔', '🚍', '🚘', '🚖', '🚡',
+      '🚠', '🚟', '🚃', '🚋', '🚞', '🚝', '🚄', '🚅', '🚈', '🚂', '🚆', '🚇', '🚊', '🚉',
+      '🚁', '🛩️', '✈️', '🛫', '🛬', '🪂', '💺', '🛰️', '🚀', '🛸', '⛵', '🚤', '🛥️', '🚢',
+      '⚓', '⛽', '🏖️', '🏝️', '🏜️', '🌋', '🏔️', '🏕️', '⛺', '🏠', '🏡', '🏙️', '🌆', '🌇'
+    ],
+    objects: [
+      '⌚', '📱', '📲', '💻', '⌨️', '🖥️', '🖨️', '🖱️', '🕹️', '💽', '💾', '💿', '📀', '📼',
+      '📷', '📸', '📹', '🎥', '📽️', '🎞️', '📞', '☎️', '📟', '📠', '📺', '📻', '🎙️', '🎚️',
+      '🎛️', '🧭', '⏱️', '⏲️', '⏰', '🕰️', '⌛', '⏳', '📡', '🔋', '🪫', '🔌', '💡', '🔦',
+      '🕯️', '🪔', '🧯', '🛢️', '💸', '💵', '💴', '💶', '💷', '🪙', '💰', '💳', '💎', '⚖️',
+      '🪜', '🧰', '🪛', '🔧', '🔨', '⚒️', '🛠️', '⛏️', '🪚', '🔩', '⚙️', '🪤', '🧱', '⛓️',
+      '🧲', '🔫', '💣', '🧨', '🪓', '🔪', '🗡️', '⚔️', '🛡️', '🚬', '⚰️', '🪦', '🔮', '🧿'
+    ],
+    spicy: [
+      '💋', '🫦', '👅', '🍑', '🍒', '🍆', '🍌', '🍓', '🔥', '😈', '👿', '🤤', '🥵', '😏',
+      '😜', '🤫', '🫣', '⛓️', '🪢', '🪤', '🛏️', '🕯️', '🍾', '🍷', '🍸', '🍫', '🌹', '🥀',
+      '🖤', '🔞', '🧲', '🪞', '👠', '👙', '🩱', '💄', '💍', '🎀'
+    ]
   };
 
-  const stickersList = [
-    { id: 'stk_heart_pop', emoji: '💖', label: 'Heart Pop' },
-    { id: 'stk_fire_hot', emoji: '🔥', label: 'Lit Fire' },
-    { id: 'stk_cool_vibes', emoji: '😎', label: 'Cool Cat' },
-    { id: 'stk_100_percent', emoji: '💯', label: 'Keep it 100' },
-    { id: 'stk_party_time', emoji: '🥳', label: 'Celebrate' },
-    { id: 'stk_magic_star', emoji: '✨', label: 'Magic Spark' },
-    { id: 'stk_crying_laugh', emoji: '😂', label: 'Dead Dying' },
-    { id: 'stk_kiss_love', emoji: '😘', label: 'Mwah' },
-    { id: 'stk_mind_blown', emoji: '🤯', label: 'Mind Blown' },
-    { id: 'stk_love_eyes', emoji: '😍', label: 'Obsessed' },
-    { id: 'stk_rocket_blast', emoji: '🚀', label: 'To The Moon' },
-    { id: 'stk_pizza_slice', emoji: '🍕', label: 'Pizza Mood' },
-    { id: 'stk_cat_cute', emoji: '🐱', label: 'Meow Love' },
-    { id: 'stk_crown_king', emoji: '👑', label: 'Royalty' },
-    { id: 'stk_rainbow_vibes', emoji: '🌈', label: 'Good Vibes' }
-  ];
+  // Pre-Curated Couples & Themed Sticker Packs
+  const curatedStickerPacks = {
+    romance: [
+      { id: 'stk_r1', content: '💖', label: 'Heart Spark' },
+      { id: 'stk_r2', content: '👩‍❤️‍💋‍👨', label: 'Passionate Kiss' },
+      { id: 'stk_r3', content: '💕', label: 'Two Hearts' },
+      { id: 'stk_r4', content: '💌', label: 'Love Letter' },
+      { id: 'stk_r5', content: '🌹', label: 'Red Rose' },
+      { id: 'stk_r6', content: '💍', label: 'Marry Me' },
+      { id: 'stk_r7', content: '🫶', label: 'Heart Hands' },
+      { id: 'stk_r8', content: '🥺', label: 'Hold Me' },
+      { id: 'stk_r9', content: '🥰', label: 'All My Love' },
+      { id: 'stk_r10', content: '🫂', label: 'Warm Cuddle' },
+      { id: 'stk_r11', content: '💏', label: 'Sweet Couple' },
+      { id: 'stk_r12', content: '💋', label: 'Sweet Kiss' }
+    ],
+    spicy: [
+      { id: 'stk_s1', content: '🔥', label: 'Hot & Spicy' },
+      { id: 'stk_s2', content: '😈', label: 'Naughty Devil' },
+      { id: 'stk_s3', content: '🍑', label: 'Juicy Peach' },
+      { id: 'stk_s4', content: '🍒', label: 'Sweet Cherries' },
+      { id: 'stk_s5', content: '🫦', label: 'Biting Lip' },
+      { id: 'stk_s6', content: '🥵', label: 'Too Hot' },
+      { id: 'stk_s7', content: '⛓️', label: 'Handcuffs' },
+      { id: 'stk_s8', content: '🔞', label: '18+ Only' },
+      { id: 'stk_s9', content: '🍷', label: 'Sensual Wine' },
+      { id: 'stk_s10', content: '🍓', label: 'Dipped Strawberry' },
+      { id: 'stk_s11', content: '👠', label: 'High Heels' },
+      { id: 'stk_s12', content: '🤤', label: 'Obsessed With You' }
+    ],
+    classics: [
+      { id: 'stk_c1', content: '💯', label: 'Keep it 100' },
+      { id: 'stk_c2', content: '🥳', label: 'Party Time' },
+      { id: 'stk_c3', content: '✨', label: 'Magic Sparks' },
+      { id: 'stk_c4', content: '🚀', label: 'To The Moon' },
+      { id: 'stk_c5', content: '👑', label: 'Crown Royalty' },
+      { id: 'stk_c6', content: '😂', label: 'Dying Laughing' },
+      { id: 'stk_c7', content: '🍕', label: 'Pizza Craving' },
+      { id: 'stk_c8', content: '🐱', label: 'Cute Kitten' },
+      { id: 'stk_c9', content: '🌈', label: 'Rainbow Vibes' },
+      { id: 'stk_c10', content: '🕶️', label: 'Cool Cat' },
+      { id: 'stk_c11', content: '💥', label: 'Boom Power' },
+      { id: 'stk_c12', content: '💎', label: 'Pure Diamond' }
+    ]
+  };
+
+  // ==========================================
+  // INDEXEDDB VAULT FOR INFINITE CUSTOM STICKERS
+  // ==========================================
+  const IDB_NAME = 'PrismStickerVault';
+  const IDB_STORE = 'custom_stickers';
+  let stickerDB = null;
+
+  function openStickerDB() {
+    return new Promise((resolve) => {
+      if (!window.indexedDB) return resolve(null);
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(IDB_STORE)) {
+          db.createObjectStore(IDB_STORE, { keyPath: 'id', autoIncrement: true });
+        }
+      };
+      req.onsuccess = (e) => {
+        stickerDB = e.target.result;
+        resolve(stickerDB);
+      };
+      req.onerror = () => resolve(null);
+    });
+  }
+
+  function getCustomStickers() {
+    return new Promise((resolve) => {
+      if (!stickerDB) return resolve([]);
+      try {
+        const tx = stickerDB.transaction(IDB_STORE, 'readonly');
+        const store = tx.objectStore(IDB_STORE);
+        const req = store.getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => resolve([]);
+      } catch (e) {
+        resolve([]);
+      }
+    });
+  }
+
+  function saveCustomSticker(dataUrl, name = 'sticker') {
+    return new Promise((resolve, reject) => {
+      if (!stickerDB) return reject(new Error('IndexedDB unavailable'));
+      try {
+        const tx = stickerDB.transaction(IDB_STORE, 'readwrite');
+        const store = tx.objectStore(IDB_STORE);
+        const req = store.add({ dataUrl, name, createdAt: Date.now() });
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = (e) => reject(e);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  function deleteCustomSticker(id) {
+    return new Promise((resolve) => {
+      if (!stickerDB) return resolve();
+      try {
+        const tx = stickerDB.transaction(IDB_STORE, 'readwrite');
+        const store = tx.objectStore(IDB_STORE);
+        const req = store.delete(id);
+        req.onsuccess = () => resolve();
+        req.onerror = () => resolve();
+      } catch (e) {
+        resolve();
+      }
+    });
+  }
 
   // ==========================================
   // INITIALIZATION & LIFECYCLE
@@ -259,7 +416,7 @@
     btnResetWallpaper.classList.remove('hidden');
   }
 
-  // 2. Initialize Emoji Picker
+  // 2. Initialize Emoji Picker (WhatsApp & iOS 18 Style)
   function initEmojis() {
     renderEmojiCategory('smileys');
 
@@ -267,14 +424,38 @@
       btn.addEventListener('click', () => {
         document.querySelectorAll('.emoji-cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        if (emojiSearchInput) emojiSearchInput.value = '';
         renderEmojiCategory(btn.dataset.category);
       });
     });
+
+    // Real-time emoji search (WhatsApp style)
+    if (emojiSearchInput) {
+      emojiSearchInput.addEventListener('input', () => {
+        const query = emojiSearchInput.value.trim().toLowerCase();
+        if (!query) {
+          const activeTab = document.querySelector('.emoji-cat-btn.active');
+          renderEmojiCategory(activeTab ? activeTab.dataset.category : 'smileys');
+          return;
+        }
+
+        const matches = [];
+        Object.values(emojiCategories).flat().forEach(emoji => {
+          if (!matches.includes(emoji)) {
+            matches.push(emoji);
+          }
+        });
+        renderEmojiList(matches.slice(0, 80));
+      });
+    }
 
     btnToggleEmoji.addEventListener('click', (e) => {
       e.stopPropagation();
       stickerDrawerPopover.classList.add('hidden');
       emojiPickerPopover.classList.toggle('hidden');
+      if (!emojiPickerPopover.classList.contains('hidden') && emojiSearchInput) {
+        emojiSearchInput.focus();
+      }
     });
 
     btnCloseEmoji.addEventListener('click', () => {
@@ -284,6 +465,10 @@
 
   function renderEmojiCategory(category) {
     const list = emojiCategories[category] || emojiCategories.smileys;
+    renderEmojiList(list);
+  }
+
+  function renderEmojiList(list) {
     emojiGrid.innerHTML = '';
     list.forEach(emoji => {
       const btn = document.createElement('button');
@@ -298,31 +483,115 @@
     });
   }
 
-  // 3. Initialize Sticker Drawer
-  function initStickers() {
-    stickerGrid.innerHTML = '';
-    stickersList.forEach(sticker => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'sticker-item-btn';
-      btn.title = sticker.label;
-      btn.innerHTML = `<span class="sticker-display-sm">${sticker.emoji}</span>`;
+  // 3. Initialize WhatsApp Infinite Sticker Vault
+  let activeStickerPack = 'custom';
+
+  async function initStickers() {
+    await openStickerDB();
+    renderStickerPack(activeStickerPack);
+
+    // Tab switching for Sticker Vault
+    document.querySelectorAll('.sticker-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        sendStickerMessage(sticker.emoji);
-        stickerDrawerPopover.classList.add('hidden');
+        document.querySelectorAll('.sticker-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeStickerPack = btn.dataset.pack;
+        renderStickerPack(activeStickerPack);
       });
-      stickerGrid.appendChild(btn);
     });
+
+    // Add Custom Sticker (Unlimited / WhatsApp style)
+    if (customStickerFileInput) {
+      customStickerFileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+          alert('Please select an image file (PNG, GIF, JPG, WEBP).');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async (evt) => {
+          const dataUrl = evt.target.result;
+          await saveCustomSticker(dataUrl, file.name);
+          customStickerFileInput.value = '';
+          if (activeStickerPack === 'custom') {
+            renderStickerPack('custom');
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
 
     btnToggleSticker.addEventListener('click', (e) => {
       e.stopPropagation();
       emojiPickerPopover.classList.add('hidden');
       stickerDrawerPopover.classList.toggle('hidden');
+      if (!stickerDrawerPopover.classList.contains('hidden')) {
+        renderStickerPack(activeStickerPack);
+      }
     });
 
     btnCloseSticker.addEventListener('click', () => {
       stickerDrawerPopover.classList.add('hidden');
     });
+  }
+
+  async function renderStickerPack(packName) {
+    stickerGrid.innerHTML = '';
+
+    if (packName === 'custom') {
+      if (customStickerActions) customStickerActions.classList.remove('hidden');
+      const customStickers = await getCustomStickers();
+      if (stickerVaultCount) stickerVaultCount.textContent = `${customStickers.length} custom stickers`;
+
+      if (customStickers.length === 0) {
+        stickerGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 24px 10px; color: var(--text-secondary); font-size: 12px;">
+            <div style="font-size: 32px; margin-bottom: 6px;">📂</div>
+            <strong>Your Sticker Vault is empty</strong><br>
+            Tap "Add Custom Sticker" above to import any photo, meme, or GIF from your device!
+          </div>
+        `;
+        return;
+      }
+
+      customStickers.forEach(stk => {
+        const el = document.createElement('div');
+        el.className = 'sticker-vault-item';
+        el.innerHTML = `
+          <img src="${stk.dataUrl}" alt="${escapeHtml(stk.name)}">
+          <button type="button" class="btn-delete-sticker" title="Delete from vault">&times;</button>
+        `;
+
+        el.addEventListener('click', (e) => {
+          if (e.target.classList.contains('btn-delete-sticker')) {
+            e.stopPropagation();
+            deleteCustomSticker(stk.id).then(() => renderStickerPack('custom'));
+            return;
+          }
+          sendStickerMessage(stk.dataUrl);
+          stickerDrawerPopover.classList.add('hidden');
+        });
+
+        stickerGrid.appendChild(el);
+      });
+    } else {
+      if (customStickerActions) customStickerActions.classList.add('hidden');
+      const pack = curatedStickerPacks[packName] || curatedStickerPacks.romance;
+      pack.forEach(stk => {
+        const el = document.createElement('div');
+        el.className = 'sticker-vault-item';
+        el.title = stk.label;
+        el.innerHTML = `<span class="sticker-emoji-text">${stk.content}</span>`;
+        el.addEventListener('click', () => {
+          sendStickerMessage(stk.content);
+          stickerDrawerPopover.classList.add('hidden');
+        });
+        stickerGrid.appendChild(el);
+      });
+    }
   }
 
   // ==========================================
@@ -805,7 +1074,12 @@
       contentHtml = `<img src="${msg.mediaUrl || msg.content}" alt="Sent photo" loading="lazy">`;
     } else if (msg.type === 'sticker') {
       bubbleClass += ' is-sticker';
-      contentHtml = `<span class="sticker-display">${msg.content}</span>`;
+      const isImg = msg.content && (msg.content.startsWith('data:image') || msg.content.startsWith('http') || msg.content.startsWith('/'));
+      if (isImg) {
+        contentHtml = `<img src="${msg.content}" class="sticker-img-display" alt="Sticker" loading="lazy">`;
+      } else {
+        contentHtml = `<span class="sticker-display">${msg.content}</span>`;
+      }
     } else {
       contentHtml = escapeHtml(msg.content);
     }

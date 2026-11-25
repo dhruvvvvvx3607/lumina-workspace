@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2.1">
+  <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body class="theme-sunset" id="appBody">
 
@@ -190,46 +190,86 @@
               <path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"></path>
             </svg>
           </button>
-          <div id="themeMenu" class="dropdown-menu hidden">
-            <div class="dropdown-header">Vibrant Themes</div>
-            <div class="theme-options-grid">
-              <button class="theme-chip theme-btn-sunset active" data-theme="theme-sunset">
-                <span class="theme-swatch sunset"></span> Sunset Glow
-              </button>
-              <button class="theme-chip theme-btn-neon" data-theme="theme-neon">
-                <span class="theme-swatch neon"></span> Cyber Neon
-              </button>
-              <button class="theme-chip theme-btn-abstract" data-theme="theme-abstract">
-                <span class="theme-swatch abstract"></span> Abstract Grid
-              </button>
-              <button class="theme-chip theme-btn-velvet" data-theme="theme-velvet">
-                <span class="theme-swatch velvet"></span> Midnight Velvet
-              </button>
-              <button class="theme-chip theme-btn-emerald" data-theme="theme-emerald">
-                <span class="theme-swatch emerald"></span> Emerald Dream
-              </button>
-              <button class="theme-chip theme-btn-ocean" data-theme="theme-ocean">
-                <span class="theme-swatch ocean"></span> Ocean Wave
-              </button>
-            </div>
-            
-            <div class="dropdown-divider"></div>
-            
-            <!-- Custom Local Image Wallpaper Feature -->
-            <div class="custom-wallpaper-section">
-              <div class="wallpaper-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                  <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-                <span>Custom Image Theme</span>
+          <div id="themeMenu" class="dropdown-menu theme-menu-expanded hidden">
+            <div class="theme-menu-scroll">
+              <!-- Category 1: Love & Romance (Couples) -->
+              <div class="dropdown-category">
+                <span class="category-title">💖 Love &amp; Couples</span>
+                <div class="theme-options-grid">
+                  <button class="theme-chip" data-theme="theme-romance" type="button">
+                    <span class="theme-swatch romance"></span> Midnight Romance
+                  </button>
+                  <button class="theme-chip" data-theme="theme-lavender" type="button">
+                    <span class="theme-swatch lavender"></span> Sweet Lavender
+                  </button>
+                  <button class="theme-chip" data-theme="theme-crimson" type="button">
+                    <span class="theme-swatch crimson"></span> Passionate Red
+                  </button>
+                  <button class="theme-chip" data-theme="theme-berry" type="button">
+                    <span class="theme-swatch berry"></span> Berry Bliss
+                  </button>
+                </div>
               </div>
-              <label for="wallpaperUpload" class="btn-custom-wallpaper">
-                <span>Choose Image from Device</span>
-                <input type="file" id="wallpaperUpload" accept="image/*" class="sr-only">
-              </label>
-              <button id="btnResetWallpaper" class="btn-link-sm hidden">Remove Custom Wallpaper</button>
+
+              <!-- Category 2: Naughty & Spicy (Couples) -->
+              <div class="dropdown-category">
+                <span class="category-title">😈 Naughty &amp; Spicy</span>
+                <div class="theme-options-grid">
+                  <button class="theme-chip" data-theme="theme-afterdark" type="button">
+                    <span class="theme-swatch afterdark"></span> After Dark 🔥
+                  </button>
+                  <button class="theme-chip" data-theme="theme-midnightsin" type="button">
+                    <span class="theme-swatch midnightsin"></span> Midnight Sins 😈
+                  </button>
+                  <button class="theme-chip" data-theme="theme-velvetintrigue" type="button">
+                    <span class="theme-swatch velvetintrigue"></span> Velvet Intrigue ⛓️
+                  </button>
+                </div>
+              </div>
+
+              <!-- Category 3: Aesthetic Classics -->
+              <div class="dropdown-category">
+                <span class="category-title">✨ Aesthetic Vibes</span>
+                <div class="theme-options-grid">
+                  <button class="theme-chip active" data-theme="theme-sunset" type="button">
+                    <span class="theme-swatch sunset"></span> Sunset Glow
+                  </button>
+                  <button class="theme-chip" data-theme="theme-neon" type="button">
+                    <span class="theme-swatch neon"></span> Cyber Neon
+                  </button>
+                  <button class="theme-chip" data-theme="theme-abstract" type="button">
+                    <span class="theme-swatch abstract"></span> Abstract Grid
+                  </button>
+                  <button class="theme-chip" data-theme="theme-velvet" type="button">
+                    <span class="theme-swatch velvet"></span> Midnight Velvet
+                  </button>
+                  <button class="theme-chip" data-theme="theme-emerald" type="button">
+                    <span class="theme-swatch emerald"></span> Emerald Dream
+                  </button>
+                  <button class="theme-chip" data-theme="theme-ocean" type="button">
+                    <span class="theme-swatch ocean"></span> Ocean Wave
+                  </button>
+                </div>
+              </div>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- Custom Local Image Wallpaper Feature -->
+              <div class="custom-wallpaper-section">
+                <div class="wallpaper-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                  <span>Custom Image Wallpaper</span>
+                </div>
+                <label for="wallpaperUpload" class="btn-custom-wallpaper">
+                  <span>Choose Image from Device</span>
+                  <input type="file" id="wallpaperUpload" accept="image/*" class="sr-only">
+                </label>
+                <button id="btnResetWallpaper" class="btn-link-sm hidden" type="button">Remove Custom Wallpaper</button>
+              </div>
             </div>
           </div>
         </div>
@@ -407,29 +447,57 @@
           <!-- Instagram-Style Interactive Chat Bar -->
           <div class="chat-input-wrapper">
 
-            <!-- Floating Emoji Picker Popover -->
-            <div id="emojiPickerPopover" class="popover-box hidden">
+            <!-- WhatsApp / iOS 18 Style Emoji Picker Popover -->
+            <div id="emojiPickerPopover" class="popover-box emoji-ios-popover hidden">
               <div class="popover-header">
-                <span>Emojis</span>
+                <div class="emoji-search-box">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" id="emojiSearchInput" placeholder="Search WhatsApp &amp; iOS 18 emojis..." autocomplete="off">
+                </div>
                 <button type="button" class="btn-close-popover" id="btnCloseEmoji">&times;</button>
               </div>
-              <div class="emoji-tabs">
-                <button type="button" class="emoji-cat-btn active" data-category="smileys">😀</button>
-                <button type="button" class="emoji-cat-btn" data-category="hearts">❤️</button>
-                <button type="button" class="emoji-cat-btn" data-category="gestures">👋</button>
-                <button type="button" class="emoji-cat-btn" data-category="vibes">✨</button>
-                <button type="button" class="emoji-cat-btn" data-category="animals">🐱</button>
+              <div class="emoji-tabs-ios">
+                <button type="button" class="emoji-cat-btn active" data-category="smileys" title="Smileys &amp; Emotion">😀</button>
+                <button type="button" class="emoji-cat-btn" data-category="hearts" title="Love &amp; Romance">💖</button>
+                <button type="button" class="emoji-cat-btn" data-category="people" title="People &amp; Gestures">👋</button>
+                <button type="button" class="emoji-cat-btn" data-category="nature" title="Animals &amp; Nature">🐱</button>
+                <button type="button" class="emoji-cat-btn" data-category="food" title="Food &amp; Drinks">🍕</button>
+                <button type="button" class="emoji-cat-btn" data-category="travel" title="Travel &amp; Places">✈️</button>
+                <button type="button" class="emoji-cat-btn" data-category="objects" title="Objects &amp; Symbols">💡</button>
+                <button type="button" class="emoji-cat-btn" data-category="spicy" title="Couples &amp; Spicy">🔥</button>
               </div>
-              <div id="emojiGrid" class="emoji-grid"></div>
+              <div id="emojiGrid" class="emoji-grid-ios"></div>
             </div>
 
-            <!-- Floating Sticker Drawer Popover -->
-            <div id="stickerDrawerPopover" class="popover-box sticker-drawer hidden">
+            <!-- WhatsApp Infinite Sticker Vault Popover -->
+            <div id="stickerDrawerPopover" class="popover-box sticker-drawer-vault hidden">
               <div class="popover-header">
-                <span>Instagram Stickers</span>
+                <div class="sticker-vault-tabs">
+                  <button type="button" class="sticker-tab-btn active" data-pack="custom">⭐ My Vault</button>
+                  <button type="button" class="sticker-tab-btn" data-pack="romance">💖 Couples</button>
+                  <button type="button" class="sticker-tab-btn" data-pack="spicy">😈 Spicy</button>
+                  <button type="button" class="sticker-tab-btn" data-pack="classics">✨ Classics</button>
+                </div>
                 <button type="button" class="btn-close-popover" id="btnCloseSticker">&times;</button>
               </div>
-              <div id="stickerGrid" class="sticker-grid"></div>
+
+              <!-- Action Bar for Infinite Custom Stickers -->
+              <div id="customStickerActions" class="custom-sticker-actions">
+                <label for="customStickerFileInput" class="btn-add-sticker" title="Import infinite custom stickers like in WhatsApp">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  <span>Add Custom Sticker</span>
+                  <input type="file" id="customStickerFileInput" accept="image/*" class="sr-only">
+                </label>
+                <span class="sticker-vault-count" id="stickerVaultCount">0 stickers saved</span>
+              </div>
+
+              <div id="stickerGrid" class="sticker-grid-vault"></div>
             </div>
 
             <!-- Image Upload Preview Bar -->
@@ -629,6 +697,6 @@
 
   <!-- Socket.IO Client Library & Main App Script -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="app.js?v=2.1"></script>
+  <script src="app.js?v=3.0"></script>
 </body>
 </html>
