@@ -920,6 +920,21 @@
         alert(response.error);
       }
     });
+
+    scrollToBottom();
+    setTimeout(() => {
+      messageTextInput.focus();
+      scrollToBottom();
+    }, 60);
+  }
+
+  // Handle mobile visual viewport changes (e.g. keyboard showing/hiding)
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+      if (activePartner) {
+        scrollToBottom();
+      }
+    });
   }
 
   function sendStickerMessage(stickerEmoji) {
