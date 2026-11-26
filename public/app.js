@@ -41,12 +41,16 @@
   // Header / Actions
   const btnPanic = document.getElementById('btnPanic');
   const btnLogout = document.getElementById('btnLogout');
-  const btnThemeMenu = document.getElementById('btnThemeMenu');
-  const themeMenu = document.getElementById('themeMenu');
+  const btnSettingsMenu = document.getElementById('btnSettingsMenu');
+  const settingsMenu = document.getElementById('settingsMenu');
+  const btnToggleThemes = document.getElementById('btnToggleThemes');
+  const settingsThemesPanel = document.getElementById('settingsThemesPanel');
   const btnAdminPanel = document.getElementById('btnAdminPanel');
   const adminBadgeDot = document.getElementById('adminBadgeDot');
   const currentUserAvatar = document.getElementById('currentUserAvatar');
+  const settingsUserAvatar = document.getElementById('settingsUserAvatar');
   const currentUserName = document.getElementById('currentUserName');
+  const currentUserEmail = document.getElementById('currentUserEmail');
   const currentUserRole = document.getElementById('currentUserRole');
 
   // Wallpaper
@@ -342,26 +346,31 @@
       btn.addEventListener('click', () => {
         const theme = btn.dataset.theme;
         setTheme(theme);
-        themeMenu.classList.add('hidden');
       });
     });
 
-    btnThemeMenu.addEventListener('click', (e) => {
-      e.stopPropagation();
-      themeMenu.classList.toggle('hidden');
-    });
-
-    const btnHeaderThemeQuick = document.getElementById('btnHeaderThemeQuick');
-    if (btnHeaderThemeQuick) {
-      btnHeaderThemeQuick.addEventListener('click', (e) => {
+    // Toggle Settings Dropdown
+    if (btnSettingsMenu && settingsMenu) {
+      btnSettingsMenu.addEventListener('click', (e) => {
         e.stopPropagation();
-        themeMenu.classList.toggle('hidden');
+        settingsMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Toggle Theme Group Accordion inside Settings
+    if (btnToggleThemes) {
+      btnToggleThemes.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const group = btnToggleThemes.closest('.settings-group');
+        if (group) {
+          group.classList.toggle('collapsed');
+        }
       });
     }
 
     document.addEventListener('click', (e) => {
-      if (!themeMenu.contains(e.target) && e.target !== btnThemeMenu) {
-        themeMenu.classList.add('hidden');
+      if (settingsMenu && !settingsMenu.contains(e.target) && !btnSettingsMenu.contains(e.target)) {
+        settingsMenu.classList.add('hidden');
       }
       if (!emojiPickerPopover.contains(e.target) && e.target !== btnToggleEmoji) {
         emojiPickerPopover.classList.add('hidden');
@@ -772,13 +781,19 @@
     authScreen.classList.add('hidden');
     mainApp.classList.remove('hidden');
 
-    // Populate user profile info in header
-    currentUserAvatar.textContent = (currentUser.displayName || currentUser.username).slice(0, 2).toUpperCase();
+    // Populate user profile info in header and settings dropdown
+    const avatarInitials = (currentUser.displayName || currentUser.username).slice(0, 2).toUpperCase();
+    currentUserAvatar.textContent = avatarInitials;
     currentUserAvatar.style.backgroundColor = currentUser.avatarColor || '#6366f1';
-    currentUserName.textContent = `@${currentUser.username}`;
-    currentUserRole.textContent = currentUser.role === 'admin' ? 'Master Admin' : 'Active User';
+    if (settingsUserAvatar) {
+      settingsUserAvatar.textContent = avatarInitials;
+      settingsUserAvatar.style.backgroundColor = currentUser.avatarColor || '#6366f1';
+    }
+    if (currentUserName) currentUserName.textContent = `@${currentUser.username}`;
+    if (currentUserEmail) currentUserEmail.textContent = currentUser.email || `${currentUser.username}@workspace.internal`;
+    if (currentUserRole) currentUserRole.textContent = currentUser.role === 'admin' ? 'Master Admin' : 'Active User';
 
-    // Show or hide Admin panel button
+    // Show or hide Admin panel button inside settings dropdown
     if (currentUser.role === 'admin') {
       btnAdminPanel.classList.remove('hidden');
     } else {
@@ -795,8 +810,14 @@
   btnLogout.addEventListener('click', () => {
     localStorage.removeItem('prism_auth_token');
     localStorage.removeItem('prism_user');
+    sessionStorage.clear();
     authToken = null;
     currentUser = null;
+    if (settingsMenu) settingsMenu.classList.add('hidden');
+    if (socket) {
+      socket.disconnect();
+      socket = null;
+    }
     showAuthScreen();
   });
 
@@ -1312,6 +1333,7 @@
   // ==========================================
   btnAdminPanel.addEventListener('click', () => {
     adminBadgeDot.classList.add('hidden');
+    if (settingsMenu) settingsMenu.classList.add('hidden');
     openAdminModal();
   });
 
